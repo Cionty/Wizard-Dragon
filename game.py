@@ -7,8 +7,8 @@ import random
 import sys, os
 
 def draw_terrain():
-    for x in range(0, math.ceil(1366/background_sprite.get_width())):
-        for y in range(0, math.ceil(768/background_sprite.get_height())):
+    for x in range(0, math.ceil(GAME_WIDTH/background_sprite.get_width())):
+        for y in range(0, math.ceil(GAME_HEIGHT/background_sprite.get_height())):
             pygame.Surface.blit(game_window, background_sprite, (x*background_sprite.get_width(), y*background_sprite.get_height()))
 
 class Fireball:
@@ -53,7 +53,8 @@ background_sprite = pygame.image.load("Sprites/Grass_double.jpg")
 #fireball_sprite = pygame.image.load("Sprites/Fireball.png")# pygame.transform.scale(, (100, 70))
 fireballs = []
 
-game_window = pygame.display.set_mode((1366, 768), HWACCEL|HWSURFACE|FULLSCREEN)
+game_window = pygame.display.set_mode((0, 0), HWACCEL|HWSURFACE|FULLSCREEN)
+GAME_RESOLUTION = GAME_WIDTH, GAME_HEIGHT = pygame.display.Info().current_w, pygame.display.Info().current_h
 
 FPS = 120
 clock = pygame.time.Clock()
@@ -85,8 +86,8 @@ while not game_end:
     # Game logic
     if mage_y < 0:
         mage_y = 0
-    if mage_y > 768 - mage_sprite.get_height():
-        mage_y = 768 - mage_sprite.get_height()
+    if mage_y > GAME_HEIGHT - mage_sprite.get_height():
+        mage_y = GAME_HEIGHT - mage_sprite.get_height()
 
 
     if count == 15:
@@ -101,7 +102,7 @@ while not game_end:
         #fireball.update
         pygame.Surface.blit(game_window, fireball.get_sprite(), (fireball.get_x(), fireball.get_y()))
         fireball.x += fireball.speed
-        if fireball.get_x() > 1366:
+        if fireball.get_x() > GAME_WIDTH:
             fireballs.remove(fireball)
         #if fireball.get_x() > 1366:
         #    fireball.remove()
